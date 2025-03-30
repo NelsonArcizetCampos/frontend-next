@@ -13,7 +13,7 @@ export default function ImageCard({ file }: { file: DriveFile }) {
       {/* Container com aspect ratio 9:16 */}
       <div className="w-full [aspect-ratio:9/16] bg-white flex items-center justify-center">
         <Image
-          src={`https://driver-worker.comrade-zhukov.workers.dev/image?id=${file.id}`}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_PROXY_URL}/image?id=${file.id}`}
           alt={`Imagem: ${file.name}`}
           fill
           className="object-contain object-center transition-transform duration-300 group-hover:scale-105"
