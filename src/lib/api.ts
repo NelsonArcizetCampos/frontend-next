@@ -1,15 +1,16 @@
 import { DriveFile } from '@/lib/types';
 
 export async function fetchImages(): Promise<DriveFile[]> {
-  const IMAGE_PROXY_URL = process.env.NEXT_PUBLIC_IMAGE_PROXY_URL;
-
-  if (!IMAGE_PROXY_URL) {
-    throw new Error('Missing NEXT_PUBLIC_IMAGE_PROXY_URL environment variable');
-  }
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const API_ROUTE = '/api/images';
 
   try {
-    const res = await fetch(`${IMAGE_PROXY_URL}/files`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const res = await fetch(`${baseUrl}${API_ROUTE}`);
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch images: HTTP status ${res.status}`);
+    }
+
     const data = await res.json();
     return data.files || [];
   } catch (error) {
