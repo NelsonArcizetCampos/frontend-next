@@ -1,12 +1,14 @@
-import { DriveFile } from '@/lib/types'; // Adjust the path as needed
+import { DriveFile } from '@/lib/types';
 
 export async function fetchImages(): Promise<DriveFile[]> {
-  const WORKER_URL =
-    process.env.WORKER_URL ||
-    'https://driver-worker.comrade-zhukov.workers.dev/';
+  const IMAGE_PROXY_URL = process.env.NEXT_PUBLIC_IMAGE_PROXY_URL;
+
+  if (!IMAGE_PROXY_URL) {
+    throw new Error('Missing NEXT_PUBLIC_IMAGE_PROXY_URL environment variable');
+  }
 
   try {
-    const res = await fetch(WORKER_URL);
+    const res = await fetch(`${IMAGE_PROXY_URL}/files`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const data = await res.json();
     return data.files || [];

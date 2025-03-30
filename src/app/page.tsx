@@ -1,5 +1,5 @@
 import { fetchImages } from '@/lib/api';
-import ImageCard from '@/components/ImageCard'; // Adjust the path as needed
+import ImageCard from '@/components/ImageCard';
 
 export default async function GalleryPage() {
   const files = await fetchImages();
@@ -8,7 +8,7 @@ export default async function GalleryPage() {
     <main className="max-w-6xl mx-auto p-5">
       {files.length === 0 ? (
         <div className="text-center text-gray-600 text-lg">
-          A carregar imagens...
+          Loading images...
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
